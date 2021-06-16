@@ -11,9 +11,9 @@ func readFileAst(filePath string) (*ast.File, error) {
 	return parser.ParseFile(fset, filePath, nil, parser.ParseComments)
 }
 
-func listEnumTypes(decls []ast.Decl) ([]StringEnum, []IntEnum) {
-	var stringEnums []StringEnum
-	var intEnums []IntEnum
+func listEnumTypes(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
+	var stringEnums []*StringEnum
+	var intEnums []*IntEnum
 
 	for _, decl := range decls {
 		genDecl, ok := decl.(*ast.GenDecl)
@@ -42,11 +42,11 @@ func listEnumTypes(decls []ast.Decl) ([]StringEnum, []IntEnum) {
 			// TODO: there's probably a better way to match these
 			switch ident.Name {
 			case "string":
-				stringEnums = append(stringEnums, StringEnum{
+				stringEnums = append(stringEnums, &StringEnum{
 					Name: typeSpec.Name.Name,
 				})
 			case "int":
-				intEnums = append(intEnums, IntEnum{
+				intEnums = append(intEnums, &IntEnum{
 					Name: typeSpec.Name.Name,
 				})
 			}

@@ -12,13 +12,13 @@ func Test_listEnumTypes(t *testing.T) {
 	tests := []struct {
 		name     string
 		filepath string
-		want     []StringEnum
-		want1    []IntEnum
+		want     []*StringEnum
+		want1    []*IntEnum
 	}{
 		{
 			"list enum types",
 			filepath.Join("fixtures", "types.go"),
-			[]StringEnum{
+			[]*StringEnum{
 				{
 					Name: "StringEnumType1",
 				},
@@ -35,7 +35,7 @@ func Test_listEnumTypes(t *testing.T) {
 					Name: "StringEnumType5",
 				},
 			},
-			[]IntEnum{
+			[]*IntEnum{
 				{
 					Name: "IntEnumType1",
 				},
