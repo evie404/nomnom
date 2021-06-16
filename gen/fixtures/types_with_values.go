@@ -1,3 +1,5 @@
+// +build ignore
+
 package fixtures
 
 type City string
