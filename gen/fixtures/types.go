@@ -1,5 +1,3 @@
-// +build ignore
-
 package fixtures
 
 type IntEnumType1 int
