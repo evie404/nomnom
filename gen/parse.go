@@ -11,6 +11,25 @@ func readFileAst(filePath string) (*ast.File, error) {
 	return parser.ParseFile(fset, filePath, nil, parser.ParseComments)
 }
 
+func ListEnumsTypesValues(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
+	stringTypes, intTypes := listEnumTypes(decls)
+	stringVals, intVals := listEnumValues(decls)
+
+	for i := range stringTypes {
+		if vals, found := stringVals[stringTypes[i].Name]; found {
+			stringTypes[i].Values = vals
+		}
+	}
+
+	for i := range intTypes {
+		if vals, found := intVals[intTypes[i].Name]; found {
+			intTypes[i].Values = vals
+		}
+	}
+
+	return stringTypes, intTypes
+}
+
 func listEnumTypes(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
 	var stringEnums []*StringEnum
 	var intEnums []*IntEnum
