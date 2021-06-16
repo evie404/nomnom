@@ -93,6 +93,10 @@ func Test_listEnumValues(t *testing.T) {
 						Name:  "CityQuotes",
 						Value: "`\"`",
 					},
+					{
+						Name:  "citySekret",
+						Value: "\"sekret\"",
+					},
 				},
 			},
 			map[string][]IntEnumValue{},
@@ -147,6 +151,10 @@ func TestListEnumsTypesValues(t *testing.T) {
 						{
 							Name:  "CityQuotes",
 							Value: "`\"`",
+						},
+						{
+							Name:  "citySekret",
+							Value: "\"sekret\"",
 						},
 					},
 				},

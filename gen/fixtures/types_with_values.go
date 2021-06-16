@@ -14,6 +14,8 @@ const CitySanFrancisco City = "San Francisco"
 
 const CityQuotes City = `"`
 
+const citySekret City = "sekret"
+
 // Not Supported yet
 const CitySanJose City = "San " + "Jose"
 const CitySanJose2 City = CitySanJose
