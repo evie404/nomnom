@@ -128,6 +128,31 @@ func TestConversionsTemplate(t *testing.T) {
 			filepath.Join("templates", "fixtures", "string_conversions.go"),
 			assert.NoError,
 		},
+		{
+			"",
+			args{
+				enum: Enum{
+					Name:     "Number",
+					BaseType: "int",
+					Values: []EnumValue{
+						{
+							Name:  "NumberOne",
+							Value: "1",
+						},
+						{
+							Name:  "NumberTwo",
+							Value: "2",
+						},
+						{
+							Name:  "NumberThree",
+							Value: "3",
+						},
+					},
+				},
+			},
+			filepath.Join("templates", "fixtures", "int_conversions.go"),
+			assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

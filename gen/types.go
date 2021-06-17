@@ -27,6 +27,17 @@ func (e Enum) InputVarName() string {
 	return "s"
 }
 
+func (e Enum) NullValue() string {
+	switch e.BaseType {
+	case "string":
+		return `""`
+	case "int":
+		return "0"
+	}
+
+	return ""
+}
+
 func (e Enum) VarName() string {
 	return strings.ToLower(e.TypeName())
 }

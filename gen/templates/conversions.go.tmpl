@@ -21,7 +21,7 @@ func To{{.TypeName}}({{.InputVarName}} {{.ConstantBaseType}}) ({{.TypeName}}, bo
 	{{- end}}
 	}
 
-	return {{.TypeName}}(""), false
+	return {{.TypeName}}({{.NullValue}}), false
 }
 
 func To{{.TypeName}}Err({{.InputVarName}} {{.ConstantBaseType}}) ({{.TypeName}}, error) {
@@ -29,7 +29,7 @@ func To{{.TypeName}}Err({{.InputVarName}} {{.ConstantBaseType}}) ({{.TypeName}},
 		return {{.VarName}}, nil
 	}
 
-	return {{.TypeName}}(""), fmt.Errorf("casting `%v`: %w", {{.InputVarName}}, ErrInvalid{{.TypeName}})
+	return {{.TypeName}}({{.NullValue}}), fmt.Errorf("casting `%v`: %w", {{.InputVarName}}, ErrInvalid{{.TypeName}})
 }
 
 func MustTo{{.TypeName}}({{.InputVarName}} {{.ConstantBaseType}}) {{.TypeName}} {
