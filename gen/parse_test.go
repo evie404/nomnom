@@ -67,7 +67,7 @@ func Test_listEnumValues(t *testing.T) {
 		want     map[string][]EnumValue
 	}{
 		{
-			"list string enum types",
+			"list string and int enum types",
 			filepath.Join("fixtures", "types_with_values.go"),
 			map[string][]EnumValue{
 				"City": {
@@ -98,6 +98,20 @@ func Test_listEnumValues(t *testing.T) {
 					{
 						Name:  "citySekret",
 						Value: "\"sekret\"",
+					},
+				},
+				"Number": {
+					{
+						Name:  "NumberOne",
+						Value: "1",
+					},
+					{
+						Name:  "NumberTwo",
+						Value: "2",
+					},
+					{
+						Name:  "NumberThree",
+						Value: "3",
 					},
 				},
 			},
@@ -161,6 +175,20 @@ func TestListEnumsTypesValues(t *testing.T) {
 				{
 					Name:     "Number",
 					BaseType: "int",
+					Values: []EnumValue{
+						{
+							Name:  "NumberOne",
+							Value: "1",
+						},
+						{
+							Name:  "NumberTwo",
+							Value: "2",
+						},
+						{
+							Name:  "NumberThree",
+							Value: "3",
+						},
+					},
 				},
 			},
 		},

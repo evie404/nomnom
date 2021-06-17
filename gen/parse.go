@@ -100,7 +100,8 @@ func listEnumValues(decls []ast.Decl) map[string][]EnumValue {
 
 				typeName := ident.Name
 
-				if lit.Kind == token.STRING {
+				switch lit.Kind {
+				case token.STRING, token.INT:
 					if _, found := enumValues[typeName]; !found {
 						enumValues[typeName] = nil
 					}
