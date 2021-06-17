@@ -1,0 +1,42 @@
+var (
+	ErrInvalid{{.TypeName}} = errors.New("invalid {{.TypeName}}")
+)
+
+func Is{{.TypeName}}({{.InputVarName}} {{.ConstantBaseType}}) bool {
+	switch {{.InputVarName}} {
+	{{- range .Values}}
+	case {{.Value}}:
+		return true
+	{{- end}}
+	}
+
+	return false
+}
+
+func To{{.TypeName}}({{.InputVarName}} {{.ConstantBaseType}}) ({{.TypeName}}, bool) {
+	switch {{.InputVarName}} {
+	{{- range .Values}}
+	case {{.Value}}:
+		return {{.Name}}, true
+	{{- end}}
+	}
+
+	return {{.TypeName}}(""), false
+}
+
+func To{{.TypeName}}Err({{.InputVarName}} {{.ConstantBaseType}}) ({{.TypeName}}, error) {
+	if {{.VarName}}, ok := To{{.TypeName}}({{.InputVarName}}); ok {
+		return {{.VarName}}, nil
+	}
+
+	return {{.TypeName}}(""), fmt.Errorf("casting `%v`: %w", {{.InputVarName}}, ErrInvalid{{.TypeName}})
+}
+
+func MustTo{{.TypeName}}({{.InputVarName}} {{.ConstantBaseType}}) {{.TypeName}} {
+	{{.VarName}}, err := To{{.TypeName}}Err({{.InputVarName}})
+	if err != nil {
+		panic(err)
+	}
+
+	return {{.VarName}}
+}

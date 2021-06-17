@@ -1,6 +1,9 @@
 package gen
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type StringEnum struct {
 	Name   string
@@ -13,6 +16,18 @@ func (_ StringEnum) ConstantBaseType() string {
 
 func (s StringEnum) ValuesTypeName() string {
 	return fmt.Sprintf("%sValues", s.Name)
+}
+
+func (s StringEnum) TypeName() string {
+	return s.Name
+}
+
+func (s StringEnum) InputVarName() string {
+	return "s"
+}
+
+func (s StringEnum) VarName() string {
+	return strings.ToLower(s.TypeName())
 }
 
 type StringEnumValue struct {
