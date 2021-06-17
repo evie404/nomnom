@@ -1,0 +1,9 @@
+type {{.ValuesTypeName}} struct{}
+
+func (_ *{{.ValuesTypeName}}) Values() []{{.ConstantBaseType}} {
+	return []{{.ConstantBaseType}}{
+		{{- range .Values}}
+		{{.Value}},
+		{{- end}}
+	}
+}
