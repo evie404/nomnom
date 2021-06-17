@@ -56,7 +56,7 @@ func TestValuesStructTemplate(t *testing.T) {
 					},
 				},
 			},
-			filepath.Join("templates", "fixtures", "values_struct.go"),
+			filepath.Join("templates", "fixtures", "string_values_struct.go"),
 			assert.NoError,
 		},
 	}

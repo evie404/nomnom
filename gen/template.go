@@ -9,7 +9,7 @@ import (
 )
 
 func ValuesStructTemplate(strEnum StringEnum) ([]byte, error) {
-	rawTemplate, err := ioutil.ReadFile(filepath.Join("templates", "values_struct.tmpl"))
+	rawTemplate, err := ioutil.ReadFile(filepath.Join("templates", "values_struct.go.tmpl"))
 	if err != nil {
 		return nil, fmt.Errorf("reading template file: %w", err)
 	}
