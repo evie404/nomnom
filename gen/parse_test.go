@@ -12,35 +12,39 @@ func Test_listEnumTypes(t *testing.T) {
 	tests := []struct {
 		name     string
 		filepath string
-		want     []*StringEnum
-		want1    []*IntEnum
+		want     []*Enum
 	}{
 		{
 			"list enum types",
 			filepath.Join("fixtures", "types.go"),
-			[]*StringEnum{
+			[]*Enum{
 				{
-					Name: "StringEnumType1",
+					Name:     "IntEnumType1",
+					BaseType: "int",
 				},
 				{
-					Name: "StringEnumType2",
+					Name:     "IntEnumType2",
+					BaseType: "int",
 				},
 				{
-					Name: "StringEnumType3",
+					Name:     "StringEnumType1",
+					BaseType: "string",
 				},
 				{
-					Name: "StringEnumType4",
+					Name:     "StringEnumType2",
+					BaseType: "string",
 				},
 				{
-					Name: "StringEnumType5",
-				},
-			},
-			[]*IntEnum{
-				{
-					Name: "IntEnumType1",
+					Name:     "StringEnumType3",
+					BaseType: "string",
 				},
 				{
-					Name: "IntEnumType2",
+					Name:     "StringEnumType4",
+					BaseType: "string",
+				},
+				{
+					Name:     "StringEnumType5",
+					BaseType: "string",
 				},
 			},
 		},
@@ -50,9 +54,8 @@ func Test_listEnumTypes(t *testing.T) {
 			astFile, err := readFileAst(tt.filepath)
 			require.NoError(t, err)
 
-			got, got1 := listEnumTypes(astFile.Decls)
+			got := listEnumTypes(astFile.Decls)
 			assert.Equal(t, tt.want, got)
-			assert.Equal(t, tt.want1, got1)
 		})
 	}
 }
@@ -61,13 +64,12 @@ func Test_listEnumValues(t *testing.T) {
 	tests := []struct {
 		name     string
 		filepath string
-		want     map[string][]StringEnumValue
-		want1    map[string][]IntEnumValue
+		want     map[string][]EnumValue
 	}{
 		{
 			"list string enum types",
 			filepath.Join("fixtures", "types_with_values.go"),
-			map[string][]StringEnumValue{
+			map[string][]EnumValue{
 				"City": {
 					{
 						Name:  "CityLondon",
@@ -99,7 +101,6 @@ func Test_listEnumValues(t *testing.T) {
 					},
 				},
 			},
-			map[string][]IntEnumValue{},
 		},
 	}
 	for _, tt := range tests {
@@ -107,9 +108,8 @@ func Test_listEnumValues(t *testing.T) {
 			astFile, err := readFileAst(tt.filepath)
 			require.NoError(t, err)
 
-			got, got1 := listEnumValues(astFile.Decls)
+			got := listEnumValues(astFile.Decls)
 			assert.Equal(t, tt.want, got)
-			assert.Equal(t, tt.want1, got1)
 		})
 	}
 }
@@ -118,16 +118,16 @@ func TestListEnumsTypesValues(t *testing.T) {
 	tests := []struct {
 		name     string
 		filepath string
-		want     []*StringEnum
-		want1    []*IntEnum
+		want     []*Enum
 	}{
 		{
 			"list string enum types",
 			filepath.Join("fixtures", "types_with_values.go"),
-			[]*StringEnum{
+			[]*Enum{
 				{
-					Name: "City",
-					Values: []StringEnumValue{
+					Name:     "City",
+					BaseType: "string",
+					Values: []EnumValue{
 						{
 							Name:  "CityLondon",
 							Value: "\"london\"",
@@ -158,10 +158,9 @@ func TestListEnumsTypesValues(t *testing.T) {
 						},
 					},
 				},
-			},
-			[]*IntEnum{
 				{
-					Name: "Number",
+					Name:     "Number",
+					BaseType: "int",
 				},
 			},
 		},
@@ -171,9 +170,8 @@ func TestListEnumsTypesValues(t *testing.T) {
 			astFile, err := readFileAst(tt.filepath)
 			require.NoError(t, err)
 
-			got, got1 := ListEnumsTypesValues(astFile.Decls)
+			got := ListEnumsTypesValues(astFile.Decls)
 			assert.Equal(t, tt.want, got)
-			assert.Equal(t, tt.want1, got1)
 		})
 	}
 }

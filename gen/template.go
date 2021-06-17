@@ -8,7 +8,7 @@ import (
 	"text/template"
 )
 
-func ValuesStructTemplate(strEnum StringEnum) ([]byte, error) {
+func ValuesStructTemplate(enum Enum) ([]byte, error) {
 	rawTemplate, err := ioutil.ReadFile(filepath.Join("templates", "values_struct.go.tmpl"))
 	if err != nil {
 		return nil, fmt.Errorf("reading template file: %w", err)
@@ -21,7 +21,7 @@ func ValuesStructTemplate(strEnum StringEnum) ([]byte, error) {
 
 	var b bytes.Buffer
 
-	err = t.Execute(&b, strEnum)
+	err = t.Execute(&b, enum)
 	if err != nil {
 		return nil, fmt.Errorf("executing template: %w", err)
 	}
@@ -29,7 +29,7 @@ func ValuesStructTemplate(strEnum StringEnum) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-func ConversionsTemplate(strEnum StringEnum) ([]byte, error) {
+func ConversionsTemplate(enum Enum) ([]byte, error) {
 	rawTemplate, err := ioutil.ReadFile(filepath.Join("templates", "conversions.go.tmpl"))
 	if err != nil {
 		return nil, fmt.Errorf("reading template file: %w", err)
@@ -42,7 +42,7 @@ func ConversionsTemplate(strEnum StringEnum) ([]byte, error) {
 
 	var b bytes.Buffer
 
-	err = t.Execute(&b, strEnum)
+	err = t.Execute(&b, enum)
 	if err != nil {
 		return nil, fmt.Errorf("executing template: %w", err)
 	}

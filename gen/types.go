@@ -5,50 +5,34 @@ import (
 	"strings"
 )
 
-type StringEnum struct {
-	Name   string
-	Values []StringEnumValue
+type Enum struct {
+	Name     string
+	BaseType string
+	Values   []EnumValue
 }
 
-func (_ StringEnum) ConstantBaseType() string {
-	return "string"
+func (e Enum) ConstantBaseType() string {
+	return e.BaseType
 }
 
-func (s StringEnum) ValuesTypeName() string {
-	return fmt.Sprintf("%sValues", s.Name)
+func (e Enum) ValuesTypeName() string {
+	return fmt.Sprintf("%sValues", e.Name)
 }
 
-func (s StringEnum) TypeName() string {
-	return s.Name
+func (e Enum) TypeName() string {
+	return e.Name
 }
 
-func (s StringEnum) InputVarName() string {
+func (e Enum) InputVarName() string {
 	return "s"
 }
 
-func (s StringEnum) VarName() string {
-	return strings.ToLower(s.TypeName())
+func (e Enum) VarName() string {
+	return strings.ToLower(e.TypeName())
 }
 
-type StringEnumValue struct {
-	Name         string
-	Value        string
-	PrintedValue string
-	Comment      string
-}
-
-type IntEnum struct {
-	Name   string
-	Values []IntEnumValue
-}
-
-func (_ *IntEnum) ConstantBaseType() string {
-	return "int"
-}
-
-type IntEnumValue struct {
-	Name         string
-	Value        int
-	PrintedValue string
-	Comment      string
+type EnumValue struct {
+	Name    string
+	Value   string
+	Comment string
 }

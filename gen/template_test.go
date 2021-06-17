@@ -11,7 +11,7 @@ import (
 
 func TestValuesStructTemplate(t *testing.T) {
 	type args struct {
-		strEnum StringEnum
+		enum Enum
 	}
 	tests := []struct {
 		name            string
@@ -22,9 +22,10 @@ func TestValuesStructTemplate(t *testing.T) {
 		{
 			"",
 			args{
-				strEnum: StringEnum{
-					Name: "City",
-					Values: []StringEnumValue{
+				enum: Enum{
+					Name:     "City",
+					BaseType: "string",
+					Values: []EnumValue{
 						{
 							Name:  "CityLondon",
 							Value: "\"london\"",
@@ -69,7 +70,7 @@ func TestValuesStructTemplate(t *testing.T) {
 
 `
 
-			got, err := ValuesStructTemplate(tt.args.strEnum)
+			got, err := ValuesStructTemplate(tt.args.enum)
 			tt.assertion(t, err)
 			assert.Equal(t, string(want), imports+string(got))
 		})
@@ -78,7 +79,7 @@ func TestValuesStructTemplate(t *testing.T) {
 
 func TestConversionsTemplate(t *testing.T) {
 	type args struct {
-		strEnum StringEnum
+		enum Enum
 	}
 	tests := []struct {
 		name            string
@@ -89,9 +90,10 @@ func TestConversionsTemplate(t *testing.T) {
 		{
 			"",
 			args{
-				strEnum: StringEnum{
-					Name: "City",
-					Values: []StringEnumValue{
+				enum: Enum{
+					Name:     "City",
+					BaseType: "string",
+					Values: []EnumValue{
 						{
 							Name:  "CityLondon",
 							Value: "\"london\"",
@@ -141,7 +143,7 @@ import (
 
 `
 
-			got, err := ConversionsTemplate(tt.args.strEnum)
+			got, err := ConversionsTemplate(tt.args.enum)
 			tt.assertion(t, err)
 			assert.Equal(t, string(want), imports+string(got))
 		})

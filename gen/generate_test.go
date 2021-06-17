@@ -12,7 +12,7 @@ import (
 func TestGenerateEnumHelpers(t *testing.T) {
 	type args struct {
 		pkgName string
-		strEnum StringEnum
+		enum    Enum
 	}
 	tests := []struct {
 		name            string
@@ -24,9 +24,10 @@ func TestGenerateEnumHelpers(t *testing.T) {
 			"",
 			args{
 				pkgName: "fixtures",
-				strEnum: StringEnum{
-					Name: "City",
-					Values: []StringEnumValue{
+				enum: Enum{
+					Name:     "City",
+					BaseType: "string",
+					Values: []EnumValue{
 						{
 							Name:  "CityLondon",
 							Value: "\"london\"",
@@ -67,7 +68,7 @@ func TestGenerateEnumHelpers(t *testing.T) {
 			want, err := ioutil.ReadFile(tt.wantFixturePath)
 			require.NoError(t, err)
 
-			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.strEnum)
+			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.enum)
 			tt.assertion(t, err)
 			assert.Equal(t, string(want), string(got))
 		})

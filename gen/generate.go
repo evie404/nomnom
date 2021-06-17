@@ -6,13 +6,13 @@ import (
 	"golang.org/x/tools/imports"
 )
 
-func GenerateEnumHelpers(pkgName string, strEnum StringEnum) ([]byte, error) {
-	conversions, err := ConversionsTemplate(strEnum)
+func GenerateEnumHelpers(pkgName string, enum Enum) ([]byte, error) {
+	conversions, err := ConversionsTemplate(enum)
 	if err != nil {
 		return nil, fmt.Errorf("generating conversions: %w", err)
 	}
 
-	valuesStruct, err := ValuesStructTemplate(strEnum)
+	valuesStruct, err := ValuesStructTemplate(enum)
 	if err != nil {
 		return nil, fmt.Errorf("generating values struct: %w", err)
 	}

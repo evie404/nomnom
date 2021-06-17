@@ -11,28 +11,21 @@ func readFileAst(filePath string) (*ast.File, error) {
 	return parser.ParseFile(fset, filePath, nil, parser.ParseComments)
 }
 
-func ListEnumsTypesValues(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
-	stringTypes, intTypes := listEnumTypes(decls)
-	stringVals, intVals := listEnumValues(decls)
+func ListEnumsTypesValues(decls []ast.Decl) []*Enum {
+	enumTypes := listEnumTypes(decls)
+	enumValues := listEnumValues(decls)
 
-	for i := range stringTypes {
-		if vals, found := stringVals[stringTypes[i].Name]; found {
-			stringTypes[i].Values = vals
+	for i := range enumTypes {
+		if vals, found := enumValues[enumTypes[i].Name]; found {
+			enumTypes[i].Values = vals
 		}
 	}
 
-	for i := range intTypes {
-		if vals, found := intVals[intTypes[i].Name]; found {
-			intTypes[i].Values = vals
-		}
-	}
-
-	return stringTypes, intTypes
+	return enumTypes
 }
 
-func listEnumTypes(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
-	var stringEnums []*StringEnum
-	var intEnums []*IntEnum
+func listEnumTypes(decls []ast.Decl) []*Enum {
+	var enums []*Enum
 
 	for _, decl := range decls {
 		genDecl, ok := decl.(*ast.GenDecl)
@@ -60,24 +53,20 @@ func listEnumTypes(decls []ast.Decl) ([]*StringEnum, []*IntEnum) {
 
 			// TODO: there's probably a better way to match these
 			switch ident.Name {
-			case "string":
-				stringEnums = append(stringEnums, &StringEnum{
-					Name: typeSpec.Name.Name,
-				})
-			case "int":
-				intEnums = append(intEnums, &IntEnum{
-					Name: typeSpec.Name.Name,
+			case "string", "int":
+				enums = append(enums, &Enum{
+					Name:     typeSpec.Name.Name,
+					BaseType: ident.Name,
 				})
 			}
 		}
 	}
 
-	return stringEnums, intEnums
+	return enums
 }
 
-func listEnumValues(decls []ast.Decl) (map[string][]StringEnumValue, map[string][]IntEnumValue) {
-	stringEnumValues := map[string][]StringEnumValue{}
-	intEnumValues := map[string][]IntEnumValue{}
+func listEnumValues(decls []ast.Decl) map[string][]EnumValue {
+	enumValues := map[string][]EnumValue{}
 
 	for _, decl := range decls {
 		genDecl, ok := decl.(*ast.GenDecl)
@@ -112,34 +101,18 @@ func listEnumValues(decls []ast.Decl) (map[string][]StringEnumValue, map[string]
 				typeName := ident.Name
 
 				if lit.Kind == token.STRING {
-					if _, found := stringEnumValues[typeName]; !found {
-						stringEnumValues[typeName] = nil
+					if _, found := enumValues[typeName]; !found {
+						enumValues[typeName] = nil
 					}
 
-					stringEnumValues[typeName] = append(stringEnumValues[typeName], StringEnumValue{
+					enumValues[typeName] = append(enumValues[typeName], EnumValue{
 						Name:  name.Name,
 						Value: lit.Value,
 					})
 				}
-
-				// if lit.Kind == token.INT {
-				// 	if _, found := intEnumValues[typeName]; !found {
-				// 		intEnumValues[typeName] = nil
-				// 	}
-
-				// 	intEnumValues[typeName] = append(intEnumValues[typeName], IntEnumValue{
-				// 		Name:  name.Name,
-				// 		Value: lit.Value,
-				// 	})
-				// }
-
-				// fmt.Printf("\tType name: %+v\n", ident.Name)
-				// fmt.Printf("\tConst name: %+v\n", name)
-				// // TODO: check all values of right type
-				// fmt.Printf("\tValue: %+v (%v)\n", lit.Value, lit.Kind)
 			}
 		}
 	}
 
-	return stringEnumValues, intEnumValues
+	return enumValues
 }
