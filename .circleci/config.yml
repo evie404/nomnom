@@ -32,3 +32,4 @@ workflows:
   go:
     jobs:
       - "Go build"
+      - "Go lint"
