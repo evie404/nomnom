@@ -23,8 +23,8 @@ func main() {
 	filePaths := flag.Args()
 
 	if len(filePaths) == 0 {
-		println("usage: nomnom [path to go file]")
-		return
+		printUsage()
+		os.Exit(2)
 	}
 
 	err := generateFiles(filePaths)
@@ -32,6 +32,11 @@ func main() {
 		fmt.Print(err)
 		os.Exit(1)
 	}
+}
+
+func printUsage() {
+	fmt.Fprintf(os.Stderr, "usage: usage [flags] [path ...]\n")
+	flag.PrintDefaults()
 }
 
 func generateFiles(filePaths []string) error {
