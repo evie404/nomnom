@@ -16,6 +16,9 @@ import (
 var (
 	write   = flag.Bool("w", false, "write result to (source) file instead of stdout")
 	genTest = flag.Bool("t", false, "generate test files")
+
+	valuesField  = flag.Bool("valfield", false, "generates values field")
+	valuesStruct = flag.Bool("valstruct", false, "generates values struct")
 )
 
 func main() {
@@ -27,7 +30,12 @@ func main() {
 		os.Exit(2)
 	}
 
-	err := generateFiles(filePaths)
+	opts := gen.Options{
+		GenerateValuesField:  *valuesField,
+		GenerateValuesStruct: *valuesStruct,
+	}
+
+	err := generateFiles(filePaths, opts)
 	if err != nil {
 		fmt.Print(err)
 		os.Exit(1)
@@ -39,7 +47,7 @@ func printUsage() {
 	flag.PrintDefaults()
 }
 
-func generateFiles(filePaths []string) error {
+func generateFiles(filePaths []string, opts gen.Options) error {
 	var allOutputs []byte
 
 	for _, filePath := range filePaths {
@@ -53,7 +61,7 @@ func generateFiles(filePaths []string) error {
 		enums := gen.ListEnumsTypesValues(astFile.Decls)
 
 		// TODO: make values struct optional
-		out, err := gen.GenerateEnumHelpers(pkgName, enums, false)
+		out, err := gen.GenerateEnumHelpers(pkgName, enums, opts)
 		if err != nil {
 			return fmt.Errorf("generating enum helpers: %w", err)
 		}

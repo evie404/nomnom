@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func GenerateEnumHelpers(pkgName string, enums []Enum, generateValuesStruct bool) ([]byte, error) {
+func GenerateEnumHelpers(pkgName string, enums []Enum, opts Options) ([]byte, error) {
 	var result []byte
 
 	for _, enum := range enums {
@@ -26,13 +26,22 @@ func GenerateEnumHelpers(pkgName string, enums []Enum, generateValuesStruct bool
 			result = append(result, "\n"[0])
 		}
 
-		if generateValuesStruct {
+		if opts.GenerateValuesStruct {
 			valuesStruct, err := ValuesStructTemplate(enum)
 			if err != nil {
 				return nil, fmt.Errorf("generating values struct: %w", err)
 			}
 
 			result = append(result, valuesStruct...)
+		}
+
+		if opts.GenerateValuesField {
+			valuesField, err := ValuesFieldTemplate(enum)
+			if err != nil {
+				return nil, fmt.Errorf("generating values struct: %w", err)
+			}
+
+			result = append(result, valuesField...)
 		}
 	}
 
