@@ -14,7 +14,8 @@ import (
 )
 
 var (
-	write = flag.Bool("w", false, "write result to (source) file instead of stdout")
+	write   = flag.Bool("w", false, "write result to (source) file instead of stdout")
+	genTest = flag.Bool("t", false, "generate test files")
 )
 
 func main() {
@@ -58,6 +59,18 @@ func generateFiles(filePaths []string) error {
 			}
 		} else {
 			allOutputs = append(allOutputs, out...)
+		}
+
+		if *genTest {
+			testOut, err := gen.GenerateEnumHelpersTests(pkgName, enums)
+			if err != nil {
+				return fmt.Errorf("generating enum helpers tests: %w", err)
+			}
+
+			err = writeFile(filePath, ".enum_test", testOut)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
