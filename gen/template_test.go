@@ -66,13 +66,13 @@ func TestValuesStructTemplate(t *testing.T) {
 			want, err := ioutil.ReadFile(tt.wantFixturePath)
 			require.NoError(t, err)
 
-			imports := `package fixtures
-
-`
-
 			got, err := ValuesStructTemplate(tt.args.enum)
 			tt.assertion(t, err)
-			assert.Equal(t, string(want), imports+string(got))
+
+			formattedGot, err := formatCode("fixtures", got)
+			require.NoError(t, err)
+
+			assert.Equal(t, string(want), string(formattedGot))
 		})
 	}
 }
@@ -159,18 +159,13 @@ func TestConversionsTemplate(t *testing.T) {
 			want, err := ioutil.ReadFile(tt.wantFixturePath)
 			require.NoError(t, err)
 
-			imports := `package fixtures
-
-import (
-	"errors"
-	"fmt"
-)
-
-`
-
 			got, err := ConversionsTemplate(tt.args.enum)
 			tt.assertion(t, err)
-			assert.Equal(t, string(want), imports+string(got))
+
+			formattedGot, err := formatCode("fixtures", got)
+			require.NoError(t, err)
+
+			assert.Equal(t, string(want), string(formattedGot))
 		})
 	}
 }
