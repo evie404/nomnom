@@ -33,6 +33,7 @@ func GenerateEnumHelpers(pkgName string, enums []Enum, opts Options) ([]byte, er
 			}
 
 			result = append(result, valuesStruct...)
+			result = append(result, "\n"[0])
 		}
 
 		if opts.GenerateValuesField {
@@ -42,6 +43,7 @@ func GenerateEnumHelpers(pkgName string, enums []Enum, opts Options) ([]byte, er
 			}
 
 			result = append(result, valuesField...)
+			result = append(result, "\n"[0])
 		}
 	}
 
