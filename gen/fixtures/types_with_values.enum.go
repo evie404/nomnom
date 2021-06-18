@@ -3,6 +3,7 @@ package fixtures
 import (
 	"errors"
 	"fmt"
+	"strconv"
 )
 
 var (
@@ -127,6 +128,20 @@ func MustToNumber(in int) Number {
 	}
 
 	return number
+}
+
+func ParseNumber(in string) (Number, error) {
+	num, err := strconv.Atoi(in)
+	if err != nil {
+		return Number(0), fmt.Errorf("parsing `%v` to number: %w", in, err)
+	}
+
+	result, err := ToNumberErr(num)
+	if err != nil {
+		return Number(0), err
+	}
+
+	return result, nil
 }
 
 type NumberValues struct{}

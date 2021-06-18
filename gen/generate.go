@@ -13,13 +13,24 @@ func GenerateEnumHelpers(pkgName string, enums []Enum) ([]byte, error) {
 			return nil, fmt.Errorf("generating conversions: %w", err)
 		}
 
+		result = append(result, conversions...)
+		result = append(result, "\n"[0])
+
+		if enum.BaseType == "int" {
+			numConversions, err := NumericConversionsTemplate(enum)
+			if err != nil {
+				return nil, fmt.Errorf("generating numeric conversions: %w", err)
+			}
+
+			result = append(result, numConversions...)
+			result = append(result, "\n"[0])
+		}
+
 		valuesStruct, err := ValuesStructTemplate(enum)
 		if err != nil {
 			return nil, fmt.Errorf("generating values struct: %w", err)
 		}
 
-		result = append(result, conversions...)
-		result = append(result, "\n"[0])
 		result = append(result, valuesStruct...)
 	}
 
