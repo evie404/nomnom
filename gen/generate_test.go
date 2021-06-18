@@ -12,7 +12,7 @@ import (
 func TestGenerateEnumHelpers(t *testing.T) {
 	type args struct {
 		pkgName string
-		enum    Enum
+		enums   []Enum
 	}
 	tests := []struct {
 		name            string
@@ -24,37 +24,39 @@ func TestGenerateEnumHelpers(t *testing.T) {
 			"",
 			args{
 				pkgName: "fixtures",
-				enum: Enum{
-					Name:     "City",
-					BaseType: "string",
-					Values: []EnumValue{
-						{
-							Name:  "CityLondon",
-							Value: "\"london\"",
-						},
-						{
-							Name:  "CityOakland",
-							Value: "\"oakland\"",
-						},
-						{
-							Name:  "CityPortland",
-							Value: "\"portland\"",
-						},
-						{
-							Name:  "CitySeattle",
-							Value: "\"seattle\"",
-						},
-						{
-							Name:  "CitySanFrancisco",
-							Value: "\"San Francisco\"",
-						},
-						{
-							Name:  "CityQuotes",
-							Value: "`\"`",
-						},
-						{
-							Name:  "citySekret",
-							Value: "\"sekret\"",
+				enums: []Enum{
+					{
+						Name:     "City",
+						BaseType: "string",
+						Values: []EnumValue{
+							{
+								Name:  "CityLondon",
+								Value: "\"london\"",
+							},
+							{
+								Name:  "CityOakland",
+								Value: "\"oakland\"",
+							},
+							{
+								Name:  "CityPortland",
+								Value: "\"portland\"",
+							},
+							{
+								Name:  "CitySeattle",
+								Value: "\"seattle\"",
+							},
+							{
+								Name:  "CitySanFrancisco",
+								Value: "\"San Francisco\"",
+							},
+							{
+								Name:  "CityQuotes",
+								Value: "`\"`",
+							},
+							{
+								Name:  "citySekret",
+								Value: "\"sekret\"",
+							},
 						},
 					},
 				},
@@ -68,7 +70,7 @@ func TestGenerateEnumHelpers(t *testing.T) {
 			want, err := ioutil.ReadFile(tt.wantFixturePath)
 			require.NoError(t, err)
 
-			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.enum)
+			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.enums)
 			tt.assertion(t, err)
 			assert.Equal(t, string(want), string(got))
 		})
