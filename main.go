@@ -27,9 +27,14 @@ func main() {
 		os.Exit(2)
 	}
 
-	err := generateFiles(filePaths)
+	if *genTest && !*write {
+		fmt.Println("-w must be used with -t")
+		os.Exit(1)
+	}
+
+	err := generateFiles(filePaths, *write, *genTest)
 	if err != nil {
-		fmt.Print(err)
+		fmt.Println(err)
 		os.Exit(1)
 	}
 }
@@ -39,7 +44,7 @@ func printUsage() {
 	flag.PrintDefaults()
 }
 
-func generateFiles(filePaths []string) error {
+func generateFiles(filePaths []string, writeToFile bool, generateTests bool) error {
 	var allOutputs []byte
 
 	for _, filePath := range filePaths {
@@ -58,7 +63,7 @@ func generateFiles(filePaths []string) error {
 			return fmt.Errorf("generating enum helpers: %w", err)
 		}
 
-		if *write {
+		if writeToFile {
 			err = writeFile(filePath, ".enum", out)
 			if err != nil {
 				return err
@@ -67,7 +72,7 @@ func generateFiles(filePaths []string) error {
 			allOutputs = append(allOutputs, out...)
 		}
 
-		if *genTest {
+		if generateTests {
 			testOut, err := gen.GenerateEnumHelpersTests(pkgName, enums)
 			if err != nil {
 				return fmt.Errorf("generating enum helpers tests: %w", err)
@@ -80,7 +85,7 @@ func generateFiles(filePaths []string) error {
 		}
 	}
 
-	if !*write {
+	if !writeToFile {
 		println(string(allOutputs))
 	}
 
