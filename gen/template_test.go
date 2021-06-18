@@ -60,6 +60,31 @@ func TestValuesStructTemplate(t *testing.T) {
 			filepath.Join("templates", "fixtures", "string_values_struct.go"),
 			assert.NoError,
 		},
+		{
+			"",
+			args{
+				enum: Enum{
+					Name:     "Number",
+					BaseType: "int",
+					Values: []EnumValue{
+						{
+							Name:  "NumberOne",
+							Value: "1",
+						},
+						{
+							Name:  "NumberTwo",
+							Value: "2",
+						},
+						{
+							Name:  "NumberThree",
+							Value: "3",
+						},
+					},
+				},
+			},
+			filepath.Join("templates", "fixtures", "int_values_struct.go"),
+			assert.NoError,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
