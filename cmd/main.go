@@ -52,18 +52,9 @@ func generateFiles(filePaths []string) error {
 		}
 
 		if *write {
-			ext := filepath.Ext(filePath)
-			newFilePath := strings.Replace(filePath, ext, ".enum"+ext, -1)
-
-			// On Windows, we need to re-set the permissions from the file. See golang/go#38225.
-			var perms os.FileMode
-			if fi, err := os.Stat(filePath); err == nil {
-				perms = fi.Mode() & os.ModePerm
-			}
-
-			err = ioutil.WriteFile(newFilePath, out, perms)
+			err = writeFile(filePath, ".enum", out)
 			if err != nil {
-				return fmt.Errorf("writing file `%s`: %w", newFilePath, err)
+				return err
 			}
 		} else {
 			allOutputs = append(allOutputs, out...)
@@ -72,6 +63,24 @@ func generateFiles(filePaths []string) error {
 
 	if !*write {
 		println(string(allOutputs))
+	}
+
+	return nil
+}
+
+func writeFile(originalFilename string, extPrefix string, content []byte) error {
+	ext := filepath.Ext(originalFilename)
+	newFilePath := strings.Replace(originalFilename, ext, extPrefix+ext, -1)
+
+	// On Windows, we need to re-set the permissions from the file. See golang/go#38225.
+	var perms os.FileMode
+	if fi, err := os.Stat(originalFilename); err == nil {
+		perms = fi.Mode() & os.ModePerm
+	}
+
+	err := ioutil.WriteFile(newFilePath, content, perms)
+	if err != nil {
+		return fmt.Errorf("writing file `%s`: %w", newFilePath, err)
 	}
 
 	return nil
