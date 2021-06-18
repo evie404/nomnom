@@ -59,6 +59,24 @@ func TestGenerateEnumHelpers(t *testing.T) {
 							},
 						},
 					},
+					{
+						Name:     "Number",
+						BaseType: "int",
+						Values: []EnumValue{
+							{
+								Name:  "NumberOne",
+								Value: "1",
+							},
+							{
+								Name:  "NumberTwo",
+								Value: "2",
+							},
+							{
+								Name:  "NumberThree",
+								Value: "3",
+							},
+						},
+					},
 				},
 			},
 			filepath.Join("fixtures", "types_with_values.enum.go"),
