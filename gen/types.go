@@ -64,6 +64,22 @@ type EnumValue struct {
 	Comment string
 }
 
+func (e EnumValue) RawValue() string {
+	return trimQuotes(e.Value)
+}
+
+func trimQuotes(s string) string {
+	if len(s) < 2 {
+		return s
+	}
+
+	if strings.HasPrefix(s, `"`) && strings.HasSuffix(s, `"`) {
+		return s[1 : len(s)-1]
+	}
+
+	return s
+}
+
 func (e EnumValue) EscapedValue() string {
 	return strings.Replace(e.Value, `"`, `\"`, -1)
 }
