@@ -13,6 +13,10 @@ func ValuesStructTemplate(enum Enum) ([]byte, error) {
 	return runTemplateBytes(templates.ValuesStruct, enum)
 }
 
+func ValuesFieldTemplate(enum Enum) ([]byte, error) {
+	return runTemplateBytes(templates.ValuesField, enum)
+}
+
 func ConversionsTemplate(enum Enum) ([]byte, error) {
 	return runTemplateBytes(templates.Conversions, enum)
 }

@@ -19,4 +19,7 @@ var (
 
 	//go:embed values_struct.go.tmpl
 	ValuesStruct []byte
+
+	//go:embed values_field.go.tmpl
+	ValuesField []byte
 )
