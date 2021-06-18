@@ -1,5 +1,8 @@
 # nomnom
 
+nomnom is a code generator for Go enums that produces readable, tested, and performant code.
+See [fixtures](/gen/fixtures) for examples of generated code.
+
 ## Motivation
 
 Custom types and constants are often used in Go for defining enums:
