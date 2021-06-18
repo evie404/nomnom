@@ -7,6 +7,12 @@ jobs:
       - checkout
       - run: go build -v ./...
       - run: go test -v ./...
+      - run:
+          name: Test generation from CLI
+          command: go build cmd/main.go && ./main -w gen/fixtures/types_with_values.go
+      - run:
+          name: Ensure generated content are same as existing fixtures
+          command: ci/ensure_git_status_clean.sh
 workflows:
   go:
     jobs:
