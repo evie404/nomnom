@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+type Options struct {
+	GenerateValuesField  bool
+	GenerateValuesStruct bool
+}
+
 type Enum struct {
 	Name     string
 	BaseType string

@@ -11,9 +11,9 @@ import (
 
 func TestGenerateEnumHelpers(t *testing.T) {
 	type args struct {
-		pkgName              string
-		enums                []Enum
-		generateValuesStruct bool
+		pkgName string
+		enums   []Enum
+		opts    Options
 	}
 	tests := []struct {
 		name            string
@@ -79,7 +79,10 @@ func TestGenerateEnumHelpers(t *testing.T) {
 						},
 					},
 				},
-				generateValuesStruct: false,
+				opts: Options{
+					GenerateValuesStruct: true,
+					GenerateValuesField:  true,
+				},
 			},
 			filepath.Join("fixtures", "types_with_values.enum.go"),
 			assert.NoError,
@@ -90,7 +93,7 @@ func TestGenerateEnumHelpers(t *testing.T) {
 			want, err := ioutil.ReadFile(tt.wantFixturePath)
 			require.NoError(t, err)
 
-			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.enums, tt.args.generateValuesStruct)
+			got, err := GenerateEnumHelpers(tt.args.pkgName, tt.args.enums, tt.args.opts)
 			tt.assertion(t, err)
 			assert.Equal(t, string(want), string(got))
 		})

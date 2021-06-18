@@ -1,0 +1,7 @@
+func ({{.TypeName}}) Values() []{{.ConstantBaseType}} {
+	return []{{.ConstantBaseType}}{
+		{{- range .Values}}
+		{{.Value}},
+		{{- end}}
+	}
+}

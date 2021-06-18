@@ -16,7 +16,7 @@ jobs:
           command: rm gen/fixtures/types_with_values.enum*
       - run:
           name: Test generation from CLI
-          command: ./main -w -t gen/fixtures/types_with_values.go
+          command: ./main -w -t -valfield -valstruct gen/fixtures/types_with_values.go
       - run:
           name: Ensure generated content are same as existing fixtures
           command: ci/ensure_git_status_clean.sh
