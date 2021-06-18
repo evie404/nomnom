@@ -52,7 +52,8 @@ func generateFiles(filePaths []string) error {
 
 		enums := gen.ListEnumsTypesValues(astFile.Decls)
 
-		out, err := gen.GenerateEnumHelpers(pkgName, enums)
+		// TODO: make values struct optional
+		out, err := gen.GenerateEnumHelpers(pkgName, enums, true)
 		if err != nil {
 			return fmt.Errorf("generating enum helpers: %w", err)
 		}
