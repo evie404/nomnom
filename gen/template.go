@@ -3,7 +3,6 @@ package gen
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"text/template"
 
 	"github.com/rickypai/nomnom/gen/templates"
@@ -44,15 +43,6 @@ func runTemplateBytes(rawTemplate []byte, enum Enum) ([]byte, error) {
 	}
 
 	return b.Bytes(), nil
-}
-
-func runTemplate(templatePath string, enum Enum) ([]byte, error) {
-	rawTemplate, err := ioutil.ReadFile(templatePath)
-	if err != nil {
-		return nil, fmt.Errorf("reading template file: %w", err)
-	}
-
-	return runTemplateBytes(rawTemplate, enum)
 }
 
 func formatCode(pkgName string, importedPkgs []string, content []byte) ([]byte, error) {

@@ -3,6 +3,7 @@ jobs:
   "Go build":
     docker:
       - image: circleci/golang:1.16
+    resource_class: small
     steps:
       - checkout
       - run: go build -v ./...
@@ -19,7 +20,16 @@ jobs:
       - run:
           name: Ensure generated content are same as existing fixtures
           command: ci/ensure_git_status_clean.sh
+  "Go lint":
+    docker:
+      - image: golangci/golangci-lint:v1.41.0
+    resource_class: small
+    steps:
+      - checkout
+      - run:
+          command: golangci-lint run --timeout 3m
 workflows:
   go:
     jobs:
       - "Go build"
+      - "Go lint"
