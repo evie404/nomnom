@@ -38,6 +38,17 @@ func (e Enum) NullValue() string {
 	return ""
 }
 
+func (e Enum) RandValue() string {
+	switch e.BaseType {
+	case "string":
+		return "strconv.Itoa(rand.Int())"
+	case "int":
+		return "rand.Int()"
+	}
+
+	return ""
+}
+
 func (e Enum) VarName() string {
 	return strings.ToLower(e.TypeName())
 }
@@ -46,4 +57,8 @@ type EnumValue struct {
 	Name    string
 	Value   string
 	Comment string
+}
+
+func (e EnumValue) EscapedValue() string {
+	return strings.Replace(e.Value, `"`, `\"`, -1)
 }

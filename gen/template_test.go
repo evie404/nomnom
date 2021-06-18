@@ -204,47 +204,47 @@ func TestConversionsTestTemplate(t *testing.T) {
 		wantFixturePath string
 		assertion       assert.ErrorAssertionFunc
 	}{
-		// {
-		// 	"",
-		// 	args{
-		// 		enum: Enum{
-		// 			Name:     "City",
-		// 			BaseType: "string",
-		// 			Values: []EnumValue{
-		// 				{
-		// 					Name:  "CityLondon",
-		// 					Value: "\"london\"",
-		// 				},
-		// 				{
-		// 					Name:  "CityOakland",
-		// 					Value: "\"oakland\"",
-		// 				},
-		// 				{
-		// 					Name:  "CityPortland",
-		// 					Value: "\"portland\"",
-		// 				},
-		// 				{
-		// 					Name:  "CitySeattle",
-		// 					Value: "\"seattle\"",
-		// 				},
-		// 				{
-		// 					Name:  "CitySanFrancisco",
-		// 					Value: "\"San Francisco\"",
-		// 				},
-		// 				{
-		// 					Name:  "CityQuotes",
-		// 					Value: "`\"`",
-		// 				},
-		// 				{
-		// 					Name:  "citySekret",
-		// 					Value: "\"sekret\"",
-		// 				},
-		// 			},
-		// 		},
-		// 	},
-		// 	filepath.Join("templates", "fixtures", "string_conversions.go"),
-		// 	assert.NoError,
-		// },
+		{
+			"",
+			args{
+				enum: Enum{
+					Name:     "City",
+					BaseType: "string",
+					Values: []EnumValue{
+						{
+							Name:  "CityLondon",
+							Value: "\"london\"",
+						},
+						{
+							Name:  "CityOakland",
+							Value: "\"oakland\"",
+						},
+						{
+							Name:  "CityPortland",
+							Value: "\"portland\"",
+						},
+						{
+							Name:  "CitySeattle",
+							Value: "\"seattle\"",
+						},
+						{
+							Name:  "CitySanFrancisco",
+							Value: "\"San Francisco\"",
+						},
+						{
+							Name:  "CityQuotes",
+							Value: "`\"`",
+						},
+						{
+							Name:  "citySekret",
+							Value: "\"sekret\"",
+						},
+					},
+				},
+			},
+			filepath.Join("templates", "fixtures", "string_conversions_test.go"),
+			assert.NoError,
+		},
 		{
 			"",
 			args{
