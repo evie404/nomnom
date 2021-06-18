@@ -79,7 +79,7 @@ func TestGenerateEnumHelpers(t *testing.T) {
 						},
 					},
 				},
-				generateValuesStruct: true,
+				generateValuesStruct: false,
 			},
 			filepath.Join("fixtures", "types_with_values.enum.go"),
 			assert.NoError,
