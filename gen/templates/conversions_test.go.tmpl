@@ -1,0 +1,165 @@
+func TestIs{{.TypeName}}(t *testing.T) {
+	type args struct {
+		in int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{{- range .Values}}
+		{
+			"{{.Value}} is {{.Name}}",
+			args{
+				{{.Value}},
+			},
+			true,
+		},
+		{{- end}}
+		{
+			"errors for a random number is not a {{.TypeName}}",
+			args{
+				rand.Int(),
+			},
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := Is{{.TypeName}}(tt.args.in); got != tt.want {
+				t.Errorf("Is{{.TypeName}}() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestTo{{.TypeName}}(t *testing.T) {
+	type args struct {
+		in int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		want  {{.TypeName}}
+		want1 bool
+	}{
+		{{- range .Values}}
+		{
+			"{{.Value}} is {{.Name}}",
+			args{
+				{{.Value}},
+			},
+			{{.Name}},
+			true,
+		},
+		{{- end}}
+		{
+			"errors for a random number is not a {{.TypeName}}",
+			args{
+				rand.Int(),
+			},
+			{{.TypeName}}({{.NullValue}}),
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := To{{.TypeName}}(tt.args.in)
+			if got != tt.want {
+				t.Errorf("To{{.TypeName}}() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("To{{.TypeName}}() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
+
+func TestTo{{.TypeName}}Err(t *testing.T) {
+	type args struct {
+		in int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    {{.TypeName}}
+		wantErr bool
+	}{
+		{{- range .Values}}
+		{
+			"{{.Value}} is {{.Name}}",
+			args{
+				{{.Value}},
+			},
+			{{.Name}},
+			false,
+		},
+		{{- end}}
+		{
+			"errors for a random number is not a {{.TypeName}}",
+			args{
+				rand.Int(),
+			},
+			{{.TypeName}}({{.NullValue}}),
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := To{{.TypeName}}Err(tt.args.in)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("To{{.TypeName}}Err() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("To{{.TypeName}}Err() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMustTo{{.TypeName}}(t *testing.T) {
+	type args struct {
+		in int
+	}
+	tests := []struct {
+		name      string
+		args      args
+		want      {{.TypeName}}
+		wantPanic bool
+	}{
+		{{- range .Values}}
+		{
+			"{{.Value}} is {{.Name}}",
+			args{
+				{{.Value}},
+			},
+			{{.Name}},
+			false,
+		},
+		{{- end}}
+		{
+			"panics for a random number is not a {{.TypeName}}",
+			args{
+				rand.Int(),
+			},
+			{{.TypeName}}({{.NullValue}}),
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.wantPanic {
+				defer func() { recover() }()
+			}
+
+			if got := MustTo{{.TypeName}}(tt.args.in); got != tt.want {
+				t.Errorf("MustTo{{.TypeName}}() = %v, want %v", got, tt.want)
+			}
+
+			if tt.wantPanic {
+				t.Errorf("did not panic")
+			}
+		})
+	}
+}

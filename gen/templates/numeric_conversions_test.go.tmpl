@@ -1,0 +1,50 @@
+func TestParse{{.TypeName}}(t *testing.T) {
+	type args struct {
+		in string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    {{.TypeName}}
+		wantErr bool
+	}{
+		{{- range .Values}}
+		{
+			"{{.Value}} is {{.Name}}",
+			args{
+				"{{.Value}}",
+			},
+			{{.Name}},
+			false,
+		},
+		{{- end}}
+		{
+			"errors for non-numeric string",
+			args{
+				"abc",
+			},
+			{{.TypeName}}({{.NullValue}}),
+			true,
+		},
+		{
+			"errors for numeric string that is not a {{.TypeName}}",
+			args{
+				strconv.Itoa(rand.Int()),
+			},
+			{{.TypeName}}({{.NullValue}}),
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := Parse{{.TypeName}}(tt.args.in)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Parse{{.TypeName}}() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Parse{{.TypeName}}() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

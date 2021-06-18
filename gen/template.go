@@ -18,8 +18,16 @@ func ConversionsTemplate(enum Enum) ([]byte, error) {
 	return runTemplate(filepath.Join("templates", "conversions.go.tmpl"), enum)
 }
 
+func ConversionsTestTemplate(enum Enum) ([]byte, error) {
+	return runTemplate(filepath.Join("templates", "conversions_test.go.tmpl"), enum)
+}
+
 func NumericConversionsTemplate(enum Enum) ([]byte, error) {
 	return runTemplate(filepath.Join("templates", "numeric_conversions.go.tmpl"), enum)
+}
+
+func NumericConversionsTestTemplate(enum Enum) ([]byte, error) {
+	return runTemplate(filepath.Join("templates", "numeric_conversions_test.go.tmpl"), enum)
 }
 
 func runTemplate(templatePath string, enum Enum) ([]byte, error) {
