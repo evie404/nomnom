@@ -1,0 +1,13 @@
+func ParseNumber(in string) ({{.TypeName}}, error) {
+	num, err := strconv.Atoi(in)
+	if err != nil {
+		return {{.TypeName}}(0), fmt.Errorf("parsing `%v` to number: %w", in, err)
+	}
+
+	result, err := To{{.TypeName}}Err(num)
+	if err != nil {
+		return {{.TypeName}}(0), err
+	}
+
+	return result, nil
+}

@@ -169,3 +169,55 @@ func TestConversionsTemplate(t *testing.T) {
 		})
 	}
 }
+
+func TestNumericConversionsTemplate(t *testing.T) {
+	type args struct {
+		enum Enum
+	}
+	tests := []struct {
+		name            string
+		args            args
+		wantFixturePath string
+		assertion       assert.ErrorAssertionFunc
+	}{
+		{
+			"",
+			args{
+				enum: Enum{
+					Name:     "Number",
+					BaseType: "int",
+					Values: []EnumValue{
+						{
+							Name:  "NumberOne",
+							Value: "1",
+						},
+						{
+							Name:  "NumberTwo",
+							Value: "2",
+						},
+						{
+							Name:  "NumberThree",
+							Value: "3",
+						},
+					},
+				},
+			},
+			filepath.Join("templates", "fixtures", "int_numeric_conversions.go"),
+			assert.NoError,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			want, err := ioutil.ReadFile(tt.wantFixturePath)
+			require.NoError(t, err)
+
+			got, err := NumericConversionsTemplate(tt.args.enum)
+			tt.assertion(t, err)
+
+			formattedGot, err := formatCode("fixtures", got)
+			require.NoError(t, err)
+
+			assert.Equal(t, string(want), string(formattedGot))
+		})
+	}
+}
