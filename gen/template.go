@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"text/template"
+
+	"golang.org/x/tools/imports"
 )
 
 func ValuesStructTemplate(enum Enum) ([]byte, error) {
@@ -35,4 +37,17 @@ func runTemplate(templatePath string, enum Enum) ([]byte, error) {
 	}
 
 	return b.Bytes(), nil
+}
+
+func formatCode(pkgName string, content []byte) ([]byte, error) {
+	result := []byte("package " + pkgName)
+	result = append(result, "\n"[0])
+	result = append(result, content...)
+
+	formatted, err := imports.Process("", result, nil)
+	if err != nil {
+		return nil, fmt.Errorf("running goimports: %w", err)
+	}
+
+	return formatted, nil
 }
