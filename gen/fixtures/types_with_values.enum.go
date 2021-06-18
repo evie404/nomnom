@@ -71,20 +71,6 @@ func MustToCity(in string) City {
 	return city
 }
 
-type CityValues struct{}
-
-func (_ *CityValues) Values() []string {
-	return []string{
-		"london",
-		"oakland",
-		"portland",
-		"seattle",
-		"San Francisco",
-		`"`,
-		"sekret",
-	}
-}
-
 var (
 	ErrInvalidNumber = errors.New("invalid Number")
 )
@@ -144,14 +130,4 @@ func ParseNumber(in string) (Number, error) {
 	}
 
 	return result, nil
-}
-
-type NumberValues struct{}
-
-func (_ *NumberValues) Values() []int {
-	return []int{
-		1,
-		2,
-		3,
-	}
 }
