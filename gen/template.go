@@ -4,38 +4,33 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"path/filepath"
 	"text/template"
 
+	"github.com/rickypai/nomnom/gen/templates"
 	"golang.org/x/tools/imports"
 )
 
 func ValuesStructTemplate(enum Enum) ([]byte, error) {
-	return runTemplate(filepath.Join("templates", "values_struct.go.tmpl"), enum)
+	return runTemplateBytes(templates.ValuesStruct, enum)
 }
 
 func ConversionsTemplate(enum Enum) ([]byte, error) {
-	return runTemplate(filepath.Join("templates", "conversions.go.tmpl"), enum)
+	return runTemplateBytes(templates.Conversions, enum)
 }
 
 func ConversionsTestTemplate(enum Enum) ([]byte, error) {
-	return runTemplate(filepath.Join("templates", "conversions_test.go.tmpl"), enum)
+	return runTemplateBytes(templates.ConversionsTest, enum)
 }
 
 func NumericConversionsTemplate(enum Enum) ([]byte, error) {
-	return runTemplate(filepath.Join("templates", "numeric_conversions.go.tmpl"), enum)
+	return runTemplateBytes(templates.NumericConversions, enum)
 }
 
 func NumericConversionsTestTemplate(enum Enum) ([]byte, error) {
-	return runTemplate(filepath.Join("templates", "numeric_conversions_test.go.tmpl"), enum)
+	return runTemplateBytes(templates.NumericConversionsTest, enum)
 }
 
-func runTemplate(templatePath string, enum Enum) ([]byte, error) {
-	rawTemplate, err := ioutil.ReadFile(templatePath)
-	if err != nil {
-		return nil, fmt.Errorf("reading template file: %w", err)
-	}
-
+func runTemplateBytes(rawTemplate []byte, enum Enum) ([]byte, error) {
 	t, err := template.New("letter").Parse(string(rawTemplate))
 	if err != nil {
 		return nil, fmt.Errorf("parsing template: %w", err)
@@ -49,6 +44,15 @@ func runTemplate(templatePath string, enum Enum) ([]byte, error) {
 	}
 
 	return b.Bytes(), nil
+}
+
+func runTemplate(templatePath string, enum Enum) ([]byte, error) {
+	rawTemplate, err := ioutil.ReadFile(templatePath)
+	if err != nil {
+		return nil, fmt.Errorf("reading template file: %w", err)
+	}
+
+	return runTemplateBytes(rawTemplate, enum)
 }
 
 func formatCode(pkgName string, importedPkgs []string, content []byte) ([]byte, error) {
