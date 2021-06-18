@@ -9,8 +9,8 @@ var (
 	ErrInvalidNumber = errors.New("invalid Number")
 )
 
-func IsNumber(s int) bool {
-	switch s {
+func IsNumber(in int) bool {
+	switch in {
 	case 1:
 		return true
 	case 2:
@@ -22,8 +22,8 @@ func IsNumber(s int) bool {
 	return false
 }
 
-func ToNumber(s int) (Number, bool) {
-	switch s {
+func ToNumber(in int) (Number, bool) {
+	switch in {
 	case 1:
 		return NumberOne, true
 	case 2:
@@ -35,16 +35,16 @@ func ToNumber(s int) (Number, bool) {
 	return Number(0), false
 }
 
-func ToNumberErr(s int) (Number, error) {
-	if number, ok := ToNumber(s); ok {
+func ToNumberErr(in int) (Number, error) {
+	if number, ok := ToNumber(in); ok {
 		return number, nil
 	}
 
-	return Number(0), fmt.Errorf("casting `%v`: %w", s, ErrInvalidNumber)
+	return Number(0), fmt.Errorf("casting `%v`: %w", in, ErrInvalidNumber)
 }
 
-func MustToNumber(s int) Number {
-	number, err := ToNumberErr(s)
+func MustToNumber(in int) Number {
+	number, err := ToNumberErr(in)
 	if err != nil {
 		panic(err)
 	}

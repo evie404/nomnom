@@ -9,8 +9,8 @@ var (
 	ErrInvalidCity = errors.New("invalid City")
 )
 
-func IsCity(s string) bool {
-	switch s {
+func IsCity(in string) bool {
+	switch in {
 	case "london":
 		return true
 	case "oakland":
@@ -30,8 +30,8 @@ func IsCity(s string) bool {
 	return false
 }
 
-func ToCity(s string) (City, bool) {
-	switch s {
+func ToCity(in string) (City, bool) {
+	switch in {
 	case "london":
 		return CityLondon, true
 	case "oakland":
@@ -51,16 +51,16 @@ func ToCity(s string) (City, bool) {
 	return City(""), false
 }
 
-func ToCityErr(s string) (City, error) {
-	if city, ok := ToCity(s); ok {
+func ToCityErr(in string) (City, error) {
+	if city, ok := ToCity(in); ok {
 		return city, nil
 	}
 
-	return City(""), fmt.Errorf("casting `%v`: %w", s, ErrInvalidCity)
+	return City(""), fmt.Errorf("casting `%v`: %w", in, ErrInvalidCity)
 }
 
-func MustToCity(s string) City {
-	city, err := ToCityErr(s)
+func MustToCity(in string) City {
+	city, err := ToCityErr(in)
 	if err != nil {
 		panic(err)
 	}

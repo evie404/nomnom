@@ -24,7 +24,7 @@ func (e Enum) TypeName() string {
 }
 
 func (e Enum) InputVarName() string {
-	return "s"
+	return "in"
 }
 
 func (e Enum) NullValue() string {
