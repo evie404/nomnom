@@ -8,8 +8,11 @@ jobs:
       - run: go build -v ./...
       - run: go test -v ./...
       - run:
+          name: Build CLI binary
+          command: go build cmd/main.go
+      - run:
           name: Test generation from CLI
-          command: rm gen/fixtures/types_with_values.enum* || go build cmd/main.go && ./main -w -t gen/fixtures/types_with_values.go
+          command: rm gen/fixtures/types_with_values.enum* || ./main -w -t gen/fixtures/types_with_values.go
       - run:
           name: Ensure generated content are same as existing fixtures
           command: ci/ensure_git_status_clean.sh
