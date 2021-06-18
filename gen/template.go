@@ -43,9 +43,18 @@ func runTemplate(templatePath string, enum Enum) ([]byte, error) {
 	return b.Bytes(), nil
 }
 
-func formatCode(pkgName string, content []byte) ([]byte, error) {
+func formatCode(pkgName string, importedPkgs []string, content []byte) ([]byte, error) {
 	result := []byte("package " + pkgName)
 	result = append(result, "\n"[0])
+	result = append(result, []byte("import (")...)
+
+	for _, importedPkg := range importedPkgs {
+		result = append(result, []byte("\t\""+importedPkg+"\"")...)
+	}
+
+	result = append(result, ")"[0])
+	result = append(result, "\n"[0])
+
 	result = append(result, content...)
 
 	formatted, err := imports.Process("", result, nil)

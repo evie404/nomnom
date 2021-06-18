@@ -34,5 +34,5 @@ func GenerateEnumHelpers(pkgName string, enums []Enum) ([]byte, error) {
 		result = append(result, valuesStruct...)
 	}
 
-	return formatCode(pkgName, result)
+	return formatCode(pkgName, nil, result)
 }

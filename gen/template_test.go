@@ -94,7 +94,7 @@ func TestValuesStructTemplate(t *testing.T) {
 			got, err := ValuesStructTemplate(tt.args.enum)
 			tt.assertion(t, err)
 
-			formattedGot, err := formatCode("fixtures", got)
+			formattedGot, err := formatCode("fixtures", nil, got)
 			require.NoError(t, err)
 
 			assert.Equal(t, string(want), string(formattedGot))
@@ -187,7 +187,7 @@ func TestConversionsTemplate(t *testing.T) {
 			got, err := ConversionsTemplate(tt.args.enum)
 			tt.assertion(t, err)
 
-			formattedGot, err := formatCode("fixtures", got)
+			formattedGot, err := formatCode("fixtures", nil, got)
 			require.NoError(t, err)
 
 			assert.Equal(t, string(want), string(formattedGot))
@@ -239,7 +239,7 @@ func TestNumericConversionsTemplate(t *testing.T) {
 			got, err := NumericConversionsTemplate(tt.args.enum)
 			tt.assertion(t, err)
 
-			formattedGot, err := formatCode("fixtures", got)
+			formattedGot, err := formatCode("fixtures", nil, got)
 			require.NoError(t, err)
 
 			assert.Equal(t, string(want), string(formattedGot))
