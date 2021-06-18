@@ -9,7 +9,7 @@ jobs:
       - run: go test -v ./...
       - run:
           name: Build CLI binary
-          command: go build cmd/main.go
+          command: go build main.go
       - run:
           name: Delete existing generated fixtures
           command: rm gen/fixtures/types_with_values.enum*
