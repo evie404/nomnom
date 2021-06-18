@@ -3,6 +3,22 @@
 nomnom is a code generator for Go enums that produces readable, tested, and performant code.
 See [fixtures](/gen/fixtures) for examples of generated code.
 
+## Installation
+
+**Minimum Go version**: Go 1.16
+
+Use go get to install and update:
+
+```plaintext
+go get -u github.com/rickypai/nomnom
+```
+
+## Basic Usage
+
+```plaintext
+nomnom -w -t [file with go enums]
+```
+
 ## Motivation
 
 Custom types and constants are often used in Go for defining enums:
