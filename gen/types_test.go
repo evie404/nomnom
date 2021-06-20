@@ -26,6 +26,14 @@ func Test_trimQuotes(t *testing.T) {
 			args{"\"abc\""},
 			"abc",
 		},
+		{
+			args{`abs`},
+			"abs",
+		},
+		{
+			args{`abs"`},
+			"abs\"",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.args.s, func(t *testing.T) {

@@ -65,7 +65,8 @@ type EnumValue struct {
 }
 
 func (e EnumValue) RawValue() string {
-	return trimQuotes(e.Value)
+	rawValue, _ := EvalValueString(e.Value)
+	return trimQuotes(rawValue)
 }
 
 func trimQuotes(s string) string {
