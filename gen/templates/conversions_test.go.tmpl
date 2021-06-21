@@ -9,7 +9,7 @@ func TestIs{{.TypeName}}(t *testing.T) {
 	}{
 		{{- range .Values}}
 		{
-			"{{.EscapedValue}} is {{.Name}}",
+			"{{.RawValue}} is {{.Name}}",
 			args{
 				{{.Value}},
 			},
@@ -45,7 +45,7 @@ func TestTo{{.TypeName}}(t *testing.T) {
 	}{
 		{{- range .Values}}
 		{
-			"{{.EscapedValue}} is {{.Name}}",
+			"{{.RawValue}} is {{.Name}}",
 			args{
 				{{.Value}},
 			},
@@ -87,7 +87,7 @@ func TestTo{{.TypeName}}Err(t *testing.T) {
 	}{
 		{{- range .Values}}
 		{
-			"{{.EscapedValue}} is {{.Name}}",
+			"{{.RawValue}} is {{.Name}}",
 			args{
 				{{.Value}},
 			},
@@ -130,7 +130,7 @@ func TestMustTo{{.TypeName}}(t *testing.T) {
 	}{
 		{{- range .Values}}
 		{
-			"{{.EscapedValue}} is {{.Name}}",
+			"{{.RawValue}} is {{.Name}}",
 			args{
 				{{.Value}},
 			},
