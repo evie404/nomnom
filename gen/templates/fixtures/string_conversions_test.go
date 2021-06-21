@@ -18,49 +18,49 @@ func TestIsCity(t *testing.T) {
 		want bool
 	}{
 		{
-			"\"london\" is CityLondon",
+			"london is CityLondon",
 			args{
 				"london",
 			},
 			true,
 		},
 		{
-			"\"oakland\" is CityOakland",
+			"oakland is CityOakland",
 			args{
 				"oakland",
 			},
 			true,
 		},
 		{
-			"\"portland\" is CityPortland",
+			"portland is CityPortland",
 			args{
 				"portland",
 			},
 			true,
 		},
 		{
-			"\"seattle\" is CitySeattle",
+			"seattle is CitySeattle",
 			args{
 				"seattle",
 			},
 			true,
 		},
 		{
-			"\"San Francisco\" is CitySanFrancisco",
+			"San Francisco is CitySanFrancisco",
 			args{
 				"San Francisco",
 			},
 			true,
 		},
 		{
-			"`\"` is CityQuotes",
+			"\" is CityQuotes",
 			args{
 				`"`,
 			},
 			true,
 		},
 		{
-			"\"sekret\" is citySekret",
+			"sekret is citySekret",
 			args{
 				"sekret",
 			},
@@ -94,7 +94,7 @@ func TestToCity(t *testing.T) {
 		want1 bool
 	}{
 		{
-			"\"london\" is CityLondon",
+			"london is CityLondon",
 			args{
 				"london",
 			},
@@ -102,7 +102,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"\"oakland\" is CityOakland",
+			"oakland is CityOakland",
 			args{
 				"oakland",
 			},
@@ -110,7 +110,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"\"portland\" is CityPortland",
+			"portland is CityPortland",
 			args{
 				"portland",
 			},
@@ -118,7 +118,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"\"seattle\" is CitySeattle",
+			"seattle is CitySeattle",
 			args{
 				"seattle",
 			},
@@ -126,7 +126,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"\"San Francisco\" is CitySanFrancisco",
+			"San Francisco is CitySanFrancisco",
 			args{
 				"San Francisco",
 			},
@@ -134,7 +134,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"`\"` is CityQuotes",
+			"\" is CityQuotes",
 			args{
 				`"`,
 			},
@@ -142,7 +142,7 @@ func TestToCity(t *testing.T) {
 			true,
 		},
 		{
-			"\"sekret\" is citySekret",
+			"sekret is citySekret",
 			args{
 				"sekret",
 			},
@@ -182,7 +182,7 @@ func TestToCityErr(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"\"london\" is CityLondon",
+			"london is CityLondon",
 			args{
 				"london",
 			},
@@ -190,7 +190,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"\"oakland\" is CityOakland",
+			"oakland is CityOakland",
 			args{
 				"oakland",
 			},
@@ -198,7 +198,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"\"portland\" is CityPortland",
+			"portland is CityPortland",
 			args{
 				"portland",
 			},
@@ -206,7 +206,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"\"seattle\" is CitySeattle",
+			"seattle is CitySeattle",
 			args{
 				"seattle",
 			},
@@ -214,7 +214,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"\"San Francisco\" is CitySanFrancisco",
+			"San Francisco is CitySanFrancisco",
 			args{
 				"San Francisco",
 			},
@@ -222,7 +222,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"`\"` is CityQuotes",
+			"\" is CityQuotes",
 			args{
 				`"`,
 			},
@@ -230,7 +230,7 @@ func TestToCityErr(t *testing.T) {
 			false,
 		},
 		{
-			"\"sekret\" is citySekret",
+			"sekret is citySekret",
 			args{
 				"sekret",
 			},
@@ -271,7 +271,7 @@ func TestMustToCity(t *testing.T) {
 		wantPanic bool
 	}{
 		{
-			"\"london\" is CityLondon",
+			"london is CityLondon",
 			args{
 				"london",
 			},
@@ -279,7 +279,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"\"oakland\" is CityOakland",
+			"oakland is CityOakland",
 			args{
 				"oakland",
 			},
@@ -287,7 +287,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"\"portland\" is CityPortland",
+			"portland is CityPortland",
 			args{
 				"portland",
 			},
@@ -295,7 +295,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"\"seattle\" is CitySeattle",
+			"seattle is CitySeattle",
 			args{
 				"seattle",
 			},
@@ -303,7 +303,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"\"San Francisco\" is CitySanFrancisco",
+			"San Francisco is CitySanFrancisco",
 			args{
 				"San Francisco",
 			},
@@ -311,7 +311,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"`\"` is CityQuotes",
+			"\" is CityQuotes",
 			args{
 				`"`,
 			},
@@ -319,7 +319,7 @@ func TestMustToCity(t *testing.T) {
 			false,
 		},
 		{
-			"\"sekret\" is citySekret",
+			"sekret is citySekret",
 			args{
 				"sekret",
 			},
