@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/rickypai/nomnom/gen"
+	"github.com/evie404/nomnom/gen"
 )
 
 var (

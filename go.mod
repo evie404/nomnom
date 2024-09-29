@@ -1,4 +1,4 @@
-module github.com/rickypai/nomnom
+module github.com/evie404/nomnom
 
 go 1.16
 

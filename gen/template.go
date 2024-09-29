@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"text/template"
 
-	"github.com/rickypai/nomnom/gen/templates"
+	"github.com/evie404/nomnom/gen/templates"
 	"golang.org/x/tools/imports"
 )
 

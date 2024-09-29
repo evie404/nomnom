@@ -10,7 +10,7 @@ See [fixtures](/gen/fixtures) for examples of generated code.
 Use go get to install and update:
 
 ```plaintext
-go get -u github.com/rickypai/nomnom
+go get -u github.com/evie404/nomnom
 ```
 
 ## Basic Usage
